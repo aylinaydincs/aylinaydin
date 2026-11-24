@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CV — Aylin, Applied AI Engineer</title>
+<meta name="description" content="Curriculum vitae of Aylin, Applied AI Engineer working on computer vision, generative AI and production ML.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300&family=Geist:wght@400;500&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+/* Same tokens as index.html — night field, one accent, amber as light only. */
+:root{--bg:#0b0f14;--line:rgba(243,244,246,.09);--text:#f3f4f6;--muted:#9ca3af;--faint:#6b7280;--accent:#38bdf8;--amber:#fbbf24;
+  --serif:"Newsreader",Georgia,serif;--sans:"Geist",system-ui,sans-serif;--mono:"Geist Mono",ui-monospace,monospace;--ease:cubic-bezier(.2,.7,.2,1)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:400 1rem/1.65 var(--sans);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:1px solid var(--accent);outline-offset:4px}
+::selection{background:var(--accent);color:var(--bg)}
+p,ul,h1,h2,h3{margin:0}
+.wrap{max-width:60rem;margin:0 auto;padding-inline:clamp(1.25rem,5vw,3.5rem)}
+.mono{font-family:var(--mono);font-size:.6875rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.it{font-style:italic}
+.grain{position:fixed;inset:-50%;pointer-events:none;z-index:50;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.glow{position:fixed;left:0;top:0;width:36rem;height:36rem;margin:-18rem 0 0 -18rem;border-radius:50%;pointer-events:none;z-index:1;mix-blend-mode:screen;opacity:0;transition:opacity .8s ease;background:radial-gradient(circle,rgba(251,191,36,.09) 0%,rgba(56,189,248,.04) 35%,transparent 68%);will-change:transform}
+main,header.site,footer{position:relative;z-index:2}
+.ln{background-image:linear-gradient(currentColor,currentColor);background-size:0% 1px;background-repeat:no-repeat;background-position:0 100%;padding-bottom:3px;transition:background-size .5s var(--ease),color .3s}
+.ln:hover,.ln.on{background-size:100% 1px}.ln.on{color:var(--accent)}
+.go{color:var(--accent)}
+
+header.site{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:color-mix(in srgb,var(--bg) 72%,transparent)}
+.nav{max-width:72rem;margin:0 auto;padding:1.125rem clamp(1.25rem,5vw,3.5rem);display:flex;justify-content:space-between;align-items:center;gap:1rem;font-size:.875rem}
+.nav ul{display:flex;gap:1.75rem;list-style:none;margin:0;padding:0}
+.brand{font-family:var(--serif);font-style:italic;font-size:1.375rem}
+#tide{height:1px;background:var(--accent);transform:scaleX(0);transform-origin:0 50%;opacity:.8}
+
+.rv{opacity:0;transform:translateY(1rem);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+
+/* head */
+.head{padding-block:clamp(4rem,9vw,7rem) 3.5rem}
+.head h1{font-family:var(--serif);font-weight:300;letter-spacing:-.03em;font-size:clamp(3.5rem,9vw,6.5rem);line-height:.95;margin-top:1.25rem}
+.head .role{font-family:var(--serif);font-weight:300;font-size:clamp(1.375rem,2.6vw,1.875rem);margin-top:1rem}
+.summary{color:var(--muted);max-width:40rem;margin-top:2rem}
+.meta{display:flex;flex-wrap:wrap;gap:.75rem 1.75rem;margin-top:2.25rem;font-size:.9375rem}
+.dl{display:inline-flex;align-items:center;gap:.625rem;min-height:2.75rem;padding:0 1.25rem;border-radius:999px;background:var(--text);color:var(--bg);font-weight:500;font-size:.875rem;transition:transform .5s var(--ease),box-shadow .5s}
+.dl:hover{transform:translateY(-.125rem);box-shadow:0 20px 50px -20px rgba(251,191,36,.6)}
+.ghost{display:inline-flex;align-items:center;min-height:2.75rem;padding:0 1.25rem;border-radius:999px;border:1px solid var(--line);font-size:.875rem;transition:border-color .3s,color .3s;cursor:pointer;background:none;color:var(--text);font-family:inherit}
+.ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+/* blocks: label column + content column */
+.block{display:grid;grid-template-columns:11rem minmax(0,1fr);gap:2rem;padding-block:3rem;border-top:1px solid var(--line)}
+.block > .mono{position:sticky;top:5.5rem;align-self:start;padding-top:.375rem}
+.entry + .entry{margin-top:2.5rem}
+.entry h3{font-family:var(--serif);font-weight:400;font-size:1.5rem;line-height:1.2;letter-spacing:-.01em}
+.when{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.25rem 1rem;align-items:baseline;margin-top:.375rem}
+.when .role{color:var(--text);font-size:.9375rem}
+.entry ul{margin-top:.875rem;padding:0;list-style:none;color:var(--muted)}
+.entry li{position:relative;padding-left:1.125rem}
+.entry li + li{margin-top:.5rem}
+.entry li::before{content:"";position:absolute;left:0;top:.75em;width:.375rem;height:1px;background:var(--faint)}
+.entry .note{color:var(--muted);margin-top:.625rem}
+.entry .note em{color:var(--text);font-family:var(--serif);font-size:1.0625rem}
+.award{display:grid;grid-template-columns:3.5rem minmax(0,1fr);gap:1rem;align-items:baseline}
+.award + .award{margin-top:1.75rem}
+.award b{font-family:var(--serif);font-weight:300;font-size:2.25rem;line-height:1}
+.skills{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.75rem 2.5rem}
+.skills h3{font-family:var(--mono);font-weight:400;font-size:.6875rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:.375rem;margin-top:.75rem}
+.chips span{font-family:var(--mono);font-size:.75rem;border:1px solid var(--line);border-radius:999px;padding:.1875rem .625rem;transition:border-color .3s,color .3s}
+.chips span:hover{border-color:rgba(56,189,248,.4);color:var(--accent)}
+
+footer{padding-block:5rem 2.5rem}
+.end{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;padding-top:1.25rem;border-top:1px solid var(--line)}
+
+@media (max-width:760px){
+  .block{grid-template-columns:1fr;gap:1.25rem}
+  .block > .mono{position:static}
+  .skills{grid-template-columns:1fr}
+  .nav ul{gap:1rem}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;scroll-behavior:auto!important}.rv{opacity:1;transform:none}.glow{display:none}}
+
+/* Print: a clean, light, single-column page */
+@media print{
+  @page{margin:16mm}
+  :root{--bg:#fff;--text:#111;--muted:#333;--faint:#999;--line:#ddd;--accent:#111}
+  body{font-size:10.5pt;line-height:1.5}
+  .grain,.glow,header.site,footer,.actions,.noprint{display:none!important}
+  .rv{opacity:1!important;transform:none!important}
+  .head{padding-block:0 1.25rem}.head h1{font-size:30pt}
+  .block{padding-block:1rem;grid-template-columns:8rem minmax(0,1fr);gap:1rem;break-inside:auto}
+  .block > .mono{position:static}
+  .entry{break-inside:avoid}.entry + .entry{margin-top:1rem}
+  .chips span{border-color:#ccc}
+  .wrap{max-width:none;padding:0}
+}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<div class="glow" id="glow" aria-hidden="true"></div>
+
+<header class="site">
+  <nav class="nav" aria-label="Main">
+    <a class="brand" href="index.html">Aylin</a>
+    <ul>
+      <li><a class="ln" href="index.html#thesis">Thesis</a></li>
+      <li><a class="ln" href="index.html#work">Work</a></li>
+      <li><a class="ln" href="index.html#apps">Apps</a></li>
+      <li><a class="ln on" href="cv.html" aria-current="page">CV</a></li>
+    </ul>
+  </nav>
+  <div id="tide" aria-hidden="true"></div>
+</header>
+
+<main class="wrap">
+  <div class="head">
+    <p class="mono rv">Curriculum vitae · updated November 2026</p>
+    <h1 class="rv">Aylin<span style="color:var(--accent)">.</span></h1>
+    <p class="role rv">Applied AI Engineer — <span class="it">Computer Vision &amp; Generative AI</span></p>
+    <p class="summary rv">AI/ML engineer with 3+ years across machine learning, generative AI, computer vision and production ML systems. I build multimodal LLM applications, agentic workflows, scalable ML pipelines and automated evaluation — strongest in Python and PyTorch, model optimization, reproducible experiments and containerized deployment. Curious about how things work, and open to relocating to the UK, EU or US.</p>
+    <div class="meta rv">
+      <a class="ln" href="mailto:aylinaydin216@gmail.com">aylinaydin216@gmail.com</a>
+      <a class="ln" href="https://www.linkedin.com/in/aylinaydincs" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="ln" href="https://github.com/aylinaydincs" target="_blank" rel="noopener">GitHub ↗</a>
+      <span class="mono noprint" style="align-self:center">Istanbul · <span id="clock">--:--</span></span>
+    </div>
+    <div class="actions rv" style="display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2rem">
+      <a class="dl" href="assets/Aylin-CV.pdf" download>Download PDF <span aria-hidden="true">↓</span></a>
+      <button class="ghost" type="button" onclick="window.print()">Print</button>
+    </div>
+  </div>
+
+  <section class="block rv" aria-labelledby="h-exp">
+    <h2 class="mono" id="h-exp">Experience</h2>
+    <div>
+      <article class="entry">
+        <h3>Intuition Machines</h3>
+        <div class="when"><span class="role">Machine Learning Engineer</span><span class="mono">Jun 2025 — Oct 2026 · Remote, US</span></div>
+        <ul>
+          <li>Built a multimodal LLM Slack application on Gemini for thread analysis, image and attachment understanding, complaint retrieval and resolution tracking.</li>
+          <li>Implemented JSON-Schema structured outputs, AWS database integration, duplicate detection, validation, error handling and automated tests.</li>
+          <li>Built scalable pipelines for 2D, 3D and video asset generation, integrating multimodal models, internal APIs and AWS S3.</li>
+          <li>Wrote reusable Python infrastructure for inference, orchestration, automated evaluation, benchmarking and failure-mode analysis.</li>
+          <li>Deployed containerized ML and LLM workloads with Docker and Kubernetes, tuning quality, latency, cost and reliability.</li>
+        </ul>
+      </article>
+      <article class="entry">
+        <h3>Syntonym</h3>
+        <div class="when"><span class="role">Machine Learning (Computer Vision) Research Engineer</span><span class="mono">Feb 2023 — Oct 2024 · Istanbul</span></div>
+        <ul>
+          <li>Developed and deployed production vision systems for face and license-plate anonymization using detection, segmentation and generative models.</li>
+          <li>Raised accuracy while speeding up real-time inference through architecture, preprocessing and runtime optimization.</li>
+          <li>Optimized models for Linux, ONNX and resource-constrained environments, balancing accuracy, latency, memory and cost.</li>
+          <li>Built reproducible pipelines for preprocessing, training, inference, evaluation and validation, turning research models into reliable products.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="block rv" aria-labelledby="h-edu">
+    <h2 class="mono" id="h-edu">Education</h2>
+    <div>
+      <article class="entry">
+        <h3>Boğaziçi University</h3>
+        <div class="when"><span class="role">MSc, Computer Engineering</span><span class="mono">Sep 2024 — Jun 2026 · Istanbul</span></div>
+        <p class="note">Thesis — <em>3D Speech-Driven Talking Head Avatar Generation</em></p>
+        <ul>
+          <li>Built an end-to-end pipeline with Gaussian Splatting and diffusion: preprocessing, inference, automated evaluation, controlled ablations and benchmarking.</li>
+          <li>Published at the IEEE Signal Processing and Communications Applications Conference (SIU) 2026. <a class="ln go" href="https://ieeexplore.ieee.org/document/11637014" target="_blank" rel="noopener">IEEE Xplore ↗</a></li>
+        </ul>
+      </article>
+      <article class="entry">
+        <h3>Özyeğin University</h3>
+        <div class="when"><span class="role">BSc, Computer Science</span><span class="mono">Sep 2018 — Jun 2023 · Istanbul</span></div>
+        <ul>
+          <li>100% performance scholarship · High Honor degree · GPA 3.59 / 4.00.</li>
+          <li>Teaching Assistant, Data Structures &amp; Algorithms.</li>
+          <li>Coursework: Computer Vision, Machine Learning, Deep Learning, Artificial Intelligence, Data Science.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="block rv" aria-labelledby="h-pub">
+    <h2 class="mono" id="h-pub">Publications</h2>
+    <div>
+      <article class="entry">
+        <h3>3D speech-driven talking-head avatar generation</h3>
+        <div class="when"><span class="role">IEEE SIU 2026 · Signal Processing and Communications Applications Conference</span><span class="mono">2026</span></div>
+        <p class="note">Based on my MSc thesis at Boğaziçi University. <a class="ln go" href="https://ieeexplore.ieee.org/document/11637014" target="_blank" rel="noopener">Read on IEEE Xplore ↗</a></p>
+      </article>
+    </div>
+  </section>
+
+  <section class="block rv" aria-labelledby="h-res">
+    <h2 class="mono" id="h-res">Research &amp; open source</h2>
+    <div>
+      <article class="entry">
+        <h3>Google Summer of Code</h3>
+        <div class="when"><span class="role">Contributor, TensorFlow Similarity</span><span class="mono">Jun — Sep 2022</span></div>
+        <ul><li>Implemented and contributed ArcFace loss for metric learning — production code, documentation, tests and developer-facing integration. <a class="ln go" href="https://github.com/tensorflow/similarity/pull/291" target="_blank" rel="noopener">PR #291 ↗</a></li></ul>
+      </article>
+      <article class="entry">
+        <h3>Özyeğin University</h3>
+        <div class="when"><span class="role">Undergraduate Research Assistant</span><span class="mono">Jun 2022 — May 2023</span></div>
+        <ul>
+          <li>Improved object segmentation accuracy with image registration techniques.</li>
+          <li>Secured TÜBİTAK STAR funding, expanding the project's scope and industry relevance.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="block rv" aria-labelledby="h-hon">
+    <h2 class="mono" id="h-hon">Honors</h2>
+    <div>
+      <div class="award"><b>2nd</b><div><h3 style="font-family:var(--serif);font-weight:400;font-size:1.25rem">ING Agentic AI Hackathon <span class="mono" style="margin-left:.5rem">ING Türkiye · Nov 2026</span></h3><p style="color:var(--muted);margin-top:.375rem">Multi-agent investment advisory system: LangGraph, open-source LLMs, deterministic multi-criteria decision analysis and risk evaluation.</p></div></div>
+      <div class="award"><b>1st</b><div><h3 style="font-family:var(--serif);font-weight:400;font-size:1.25rem">Agency Screen UI/UX Hackathon <span class="mono" style="margin-left:.5rem">GIG Sigorta · Mar 2022</span></h3><p style="color:var(--muted);margin-top:.375rem">User-centered interface for insurance agencies, focused on usability and intuitive flows.</p></div></div>
+      <div class="award"><b>3rd</b><div><h3 style="font-family:var(--serif);font-weight:400;font-size:1.25rem">AlgoRun'22 Hackathon <span class="mono" style="margin-left:.5rem">invent.ai · Mar 2022</span></h3><p style="color:var(--muted);margin-top:.375rem">Time-series analysis and forecasting for retail analytics.</p></div></div>
+    </div>
+  </section>
+
+  <section class="block rv" aria-labelledby="h-sk">
+    <h2 class="mono" id="h-sk">Skills</h2>
+    <div class="skills">
+      <div><h3>Machine learning</h3><div class="chips"><span>PyTorch</span><span>TensorFlow</span><span>Diffusion models</span><span>Transformers</span><span>CNNs</span><span>scikit-learn</span></div></div>
+      <div><h3>LLM &amp; agentic AI</h3><div class="chips"><span>LangGraph</span><span>LangChain</span><span>RAG</span><span>Agentic RAG</span><span>Multi-agent</span><span>Function calling</span><span>Structured outputs</span></div></div>
+      <div><h3>Computer vision</h3><div class="chips"><span>OpenCV</span><span>Face analysis</span><span>3D Gaussian Splatting</span><span>Detection</span><span>Segmentation</span></div></div>
+      <div><h3>ML engineering</h3><div class="chips"><span>Training &amp; inference</span><span>Evaluation</span><span>Benchmarking</span><span>ONNX</span><span>REST APIs</span><span>CI/CD</span></div></div>
+      <div><h3>MLOps</h3><div class="chips"><span>Docker</span><span>Kubernetes</span><span>Linux</span><span>AWS S3</span><span>GitHub Actions</span></div></div>
+      <div><h3>Research</h3><div class="chips"><span>Experimental design</span><span>Ablation studies</span><span>Efficiency analysis</span></div></div>
+      <div><h3>Programming</h3><div class="chips"><span>Python</span><span>OOP</span><span>Data structures &amp; algorithms</span></div></div>
+      <div><h3>Languages</h3><div class="chips"><span>Turkish · native</span><span>English · professional (TOEFL 97)</span></div></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="end mono">
+      <a class="ln" href="index.html">← Back to the work</a>
+      <span style="display:flex;gap:1.5rem;flex-wrap:wrap">
+        <a class="ln" href="https://www.linkedin.com/in/aylinaydincs" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="ln" href="https://github.com/aylinaydincs" target="_blank" rel="noopener">GitHub</a>
+        <a class="ln" href="mailto:aylinaydin216@gmail.com">Email</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const tick = () => { try { document.getElementById('clock').textContent = new Date().toLocaleTimeString('en-GB', { timeZone: 'Europe/Istanbul', hour: '2-digit', minute: '2-digit' }); } catch (e) {} };
+  tick(); setInterval(tick, 30000);
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.08 });
+  document.querySelectorAll('.rv').forEach((el) => io.observe(el));
+  const tide = document.getElementById('tide');
+  const onScroll = () => { const h = document.documentElement; tide.style.transform = 'scaleX(' + Math.min(1, h.scrollTop / ((h.scrollHeight - h.clientHeight) || 1)) + ')'; };
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  if (!reduce) { const glow = document.getElementById('glow'); let gx = 0, gy = 0, tx = 0, ty = 0;
+    addEventListener('pointermove', (e) => { if (e.pointerType !== 'mouse') return; tx = e.clientX; ty = e.clientY; glow.style.opacity = 1; }, { passive: true });
+    document.addEventListener('pointerleave', () => glow.style.opacity = 0);
+    (function drift() { gx += (tx - gx) * .12; gy += (ty - gy) * .12; glow.style.transform = 'translate3d(' + gx + 'px,' + gy + 'px,0)'; requestAnimationFrame(drift); })(); }
+})();
+</script>
+</body>
+</html>

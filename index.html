@@ -3,20 +3,536 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Aylin Aydın — personal website. Coming soon.">
-<meta name="color-scheme" content="light">
-<title>Aylin Aydın — Coming soon</title>
+<title>Aylin — Applied AI Engineer</title>
+<meta name="description" content="Aylin is an Applied AI Engineer in Istanbul with a background in computer vision, generative AI and production ML — from speech-driven 3D avatars to agentic systems.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300&family=Geist:wght@400;500&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box}body{margin:0;min-height:100svh;display:grid;place-items:center;background:#f7f6f2;color:#252b28;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:32px}main{width:100%;max-width:760px}p{line-height:1.6}.label{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#68766c}h1{font-size:clamp(48px,10vw,100px);line-height:1.05;font-weight:500;letter-spacing:-.06em;margin:24px 0}.message{font-size:clamp(18px,3vw,24px);color:#68766c;margin:0}.line{width:48px;height:3px;background:#68816b;margin:40px 0}footer{font-size:13px;color:#68766c}a{color:inherit;text-underline-offset:4px}a:focus-visible{outline:2px solid #252b28;outline-offset:5px}
+/* ─────────────────────────────────────────────────────────────
+   Design tokens — mapped to Tailwind's scale.
+   Night lab: a dark field, luminous "specimen plates" for the work,
+   one accent (sky-400) for every path forward, amber only as light.
+   ───────────────────────────────────────────────────────────── */
+:root{
+  --bg:#0b0f14;            /* night field (tinted toward gray-950) */
+  --plate:#f2f2ee;         /* lit specimen plate */
+  --surface:rgba(255,255,255,.03);
+  --line:rgba(243,244,246,.09);
+  --text:#f3f4f6;          /* gray-100 */
+  --muted:#9ca3af;         /* gray-400 — 7.6:1 on bg */
+  --faint:#6b7280;         /* gray-500 — decorative only */
+  --accent:#38bdf8;        /* sky-400 */
+  --amber:#fbbf24;         /* amber-400, light only */
+  --serif:"Newsreader",Georgia,serif;
+  --sans:"Geist",system-ui,sans-serif;
+  --mono:"Geist Mono",ui-monospace,monospace;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --max:72rem;             /* max-w-6xl */
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:400 1rem/1.65 var(--sans);transition:background-color .6s linear;overflow-x:hidden}
+img,video{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:1px solid var(--accent);outline-offset:4px}
+::selection{background:var(--accent);color:var(--bg)}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 clamp(1.25rem,5vw,3.5rem)}
+.mono{font-family:var(--mono);font-size:.6875rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.serif{font-family:var(--serif);font-weight:300;letter-spacing:-.02em}
+.it{font-style:italic}
+
+/* field: grain + cursor light, blended over everything */
+.grain{position:fixed;inset:-50%;pointer-events:none;z-index:50;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.glow{position:fixed;left:0;top:0;width:36rem;height:36rem;margin:-18rem 0 0 -18rem;border-radius:50%;pointer-events:none;z-index:1;mix-blend-mode:screen;opacity:0;transition:opacity .8s ease;background:radial-gradient(circle,rgba(251,191,36,.10) 0%,rgba(56,189,248,.05) 35%,transparent 68%);will-change:transform}
+#field{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+main,header.site,footer{position:relative;z-index:2}
+
+/* links: underline draws itself */
+.ln{background-image:linear-gradient(currentColor,currentColor);background-size:0% 1px;background-repeat:no-repeat;background-position:0 100%;padding-bottom:3px;transition:background-size .5s var(--ease),color .3s}
+.ln:hover,.ln.on{background-size:100% 1px}
+.ln.on{color:var(--accent)}
+.go{color:var(--accent)}
+
+/* nav */
+header.site{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:color-mix(in srgb,var(--bg) 72%,transparent)}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding-block:1.125rem;font-size:.875rem}
+.nav ul{display:flex;gap:1.75rem;list-style:none;margin:0;padding:0}
+.brand{font-family:var(--serif);font-style:italic;font-size:1.375rem}
+#tide{height:1px;background:var(--accent);transform:scaleX(0);transform-origin:0 50%;opacity:.8}
+
+/* reveal on scroll */
+.rv{opacity:0;transform:translateY(1.25rem);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+
+/* hero */
+.hero{min-height:calc(100svh - 4rem);display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:4rem;align-items:center;padding-block:4rem 6rem}
+.boot{min-height:1.2em}
+.boot b{font-weight:400;color:var(--text)}
+.caret{display:inline-block;width:.5em;height:1em;background:var(--accent);vertical-align:-.15em;margin-left:.2em;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+#name{width:100%;height:clamp(10rem,22vw,18rem);display:block;cursor:crosshair;touch-action:pan-y;margin:1.25rem 0 .5rem}
+.lead{font-family:var(--serif);font-weight:300;font-size:clamp(1.375rem,2.2vw,1.75rem);line-height:1.4;max-width:34rem;margin:2rem 0 0}
+.coords{display:flex;gap:1.5rem;flex-wrap:wrap;margin-top:2.5rem}
+
+/* lit plates */
+.plate{background:var(--plate);border-radius:.75rem;overflow:hidden;position:relative;box-shadow:0 0 0 1px rgba(255,255,255,.06),0 30px 80px -40px rgba(56,189,248,.25)}
+.photo img{filter:saturate(.88) contrast(1.02)}
+.arch{border-radius:999px 999px .75rem .75rem;aspect-ratio:1/1.22;box-shadow:0 0 0 1px rgba(255,255,255,.08),0 40px 120px -40px rgba(251,191,36,.35)}
+.plate video,.plate img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease)}
+.plate:hover video,.plate:hover img{transform:scale(1.035)}
+.cap{display:flex;justify-content:space-between;gap:1rem;margin-top:.875rem}
+.btn{font:inherit;font-family:var(--mono);font-size:.6875rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text);background:transparent;border:1px solid var(--line);border-radius:999px;min-height:2.25rem;padding:0 .875rem;cursor:pointer;transition:border-color .3s,color .3s}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+
+.paper{display:inline-flex;align-items:center;gap:.75rem;margin-top:2.5rem;padding:.875rem 1.25rem;border:1px solid var(--line);border-radius:.75rem;transition:border-color .4s,transform .6s var(--ease),box-shadow .6s}
+.paper:hover{border-color:rgba(56,189,248,.4);transform:translateY(-.125rem);box-shadow:0 24px 50px -30px rgba(251,191,36,.5)}
+/* sections */
+section{padding:clamp(5rem,10vw,8rem) 0}
+.label{display:flex;justify-content:space-between;gap:1rem;padding-bottom:1.25rem;border-bottom:1px solid var(--line);margin-bottom:3.5rem}
+h2{font-family:var(--serif);font-weight:300;letter-spacing:-.025em;font-size:clamp(2.5rem,5.5vw,4.5rem);line-height:1.02;margin:0}
+h3{font-family:var(--serif);font-weight:300;letter-spacing:-.02em;font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.08;margin:0}
+p{margin:0}
+.body{color:var(--muted);max-width:34rem}
+
+/* thesis */
+.split{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:3.5rem;align-items:end}
+.chain{display:flex;flex-wrap:wrap;gap:.5rem .75rem;align-items:center;margin-top:2rem}
+.chain span{font-family:var(--mono);font-size:.75rem;color:var(--text);border:1px solid var(--line);border-radius:999px;padding:.25rem .75rem}
+.chain i{color:var(--faint);font-style:normal}
+.stats{display:flex;flex-wrap:wrap;gap:2.5rem 4rem;margin-top:3rem}
+.stat b{display:block;font-family:var(--serif);font-weight:300;font-size:clamp(3rem,6vw,4.5rem);line-height:1;font-variant-numeric:tabular-nums}
+.wide{aspect-ratio:2/1;margin-top:3.5rem}
+.slider{background:#fff}
+.tslide{position:absolute;inset:0;opacity:0;transform:scale(1.015);transition:opacity .7s var(--ease),transform 1.2s var(--ease)}
+.tslide.on{opacity:1;transform:none}
+.tslide video{object-fit:contain}
+.sound{position:absolute;right:1rem;bottom:1rem;z-index:2;color:#111;border-color:rgba(0,0,0,.15);background:rgba(255,255,255,.8);backdrop-filter:blur(6px);transition:opacity .4s}
+.sound[hidden]{display:inline-flex;opacity:0;pointer-events:none}
+.dots{display:flex;gap:.375rem}
+.dot{width:.5rem;height:.5rem;border-radius:999px;border:0;padding:0;background:var(--faint);cursor:pointer;transition:width .5s var(--ease),background .3s}
+.dot.on{width:1.5rem;background:var(--accent)}
+
+/* work */
+.tabs{display:flex;gap:1.5rem}
+.tab{font:inherit;font-size:.875rem;background:none;border:0;color:var(--muted);min-height:2.75rem;padding:0;cursor:pointer;border-bottom:1px solid transparent;transition:color .3s,border-color .3s}
+.tab[aria-selected="true"]{color:var(--text);border-color:var(--text)}
+.trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-top:2rem;transition:opacity .32s ease,transform .32s var(--ease)}
+.trio.out,.panel.out{opacity:0;transform:translateY(.375rem)}
+.trio .plate{aspect-ratio:3/2;background:#fff}
+.trio .contain img,.trio .contain video{object-fit:contain}
+.ing{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:3rem;margin-top:7rem;align-items:start}
+.frame{border-radius:.75rem;overflow:hidden;border:1px solid var(--line);background:#000;aspect-ratio:1280/831;transition:transform .6s var(--ease),box-shadow .6s}
+.frame:hover{transform:translateY(-.25rem);box-shadow:0 30px 60px -30px rgba(251,191,36,.45)}
+.frame video{width:100%;height:100%;object-fit:cover}
+.slide{aspect-ratio:16/9;margin-top:1.75rem}
+.slide img{object-fit:contain;transition:opacity .4s ease}
+.step{width:2.75rem;height:2.75rem;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--text);cursor:pointer;transition:border-color .3s,color .3s}
+.step:hover{border-color:var(--accent);color:var(--accent)}
+.evidence{display:flex;flex-wrap:wrap;gap:.75rem 2rem;margin:1.5rem 0 0;padding-top:1rem;border-top:1px solid var(--line)}
+.evidence div{display:flex;align-items:baseline;gap:.5rem}
+.evidence dt{font-family:var(--serif);font-size:1.5rem;line-height:1;font-variant-numeric:tabular-nums}
+.evidence dd{margin:0}
+.notes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-top:7rem}
+.note{display:flex;flex-direction:column;min-height:17rem;padding:1.75rem;border-radius:.75rem;border:1px solid var(--line);background:var(--surface);transition:transform .6s var(--ease),border-color .4s,box-shadow .6s}
+a.note:hover{transform:translateY(-.25rem);border-color:rgba(56,189,248,.35);box-shadow:0 30px 60px -36px rgba(251,191,36,.4)}
+.note h4{font-family:var(--serif);font-weight:300;font-size:1.75rem;margin:1.125rem 0 .625rem}
+.note p{color:var(--muted);font-size:.9375rem}
+.note .foot{margin-top:auto;padding-top:1.25rem;font-size:.875rem}
+.pulse{display:inline-block;width:.4375rem;height:.4375rem;border-radius:50%;background:var(--amber);margin-right:.5rem;box-shadow:0 0 0 0 rgba(251,191,36,.6);animation:pulse 2.4s ease-out infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 .5rem rgba(251,191,36,0)}100%{box-shadow:0 0 0 0 rgba(251,191,36,0)}}
+
+/* apps */
+.apps{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:4rem}
+.icons{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:.875rem}
+.icon{aspect-ratio:1/1;border-radius:24%;border:1px solid var(--line);background:var(--surface);color:var(--text);font-family:var(--serif);font-size:1.625rem;cursor:pointer;transition:transform .5s var(--ease),border-color .3s,background .3s}
+.icon:hover{transform:translateY(-.1875rem)}
+.icon[aria-selected="true"]{border-color:var(--accent);background:rgba(56,189,248,.08)}
+.icon.img{padding:0;overflow:hidden;border-color:rgba(243,244,246,.14);background:#000}
+.icon.img img{width:100%;height:100%;display:block}
+.icon.img[aria-selected="true"]{border-color:transparent;box-shadow:0 0 0 2px var(--bg),0 0 0 3.5px var(--accent)}
+.icon.img:not([aria-selected="true"]){opacity:.72}.icon.img:hover{opacity:1}
+.icon.img{transition:transform .5s var(--ease),opacity .4s,box-shadow .3s}
+.panel{margin-top:1.75rem;padding:1.75rem;border-radius:.75rem;border:1px solid var(--line);min-height:11rem;transition:opacity .32s ease,transform .32s var(--ease)}
+
+/* story */
+.story{list-style:none;margin:3rem 0 0;padding:0}
+.story li{display:grid;grid-template-columns:8rem minmax(0,1fr);gap:1.5rem;padding:1.375rem 0;border-top:1px solid var(--line);color:var(--muted);transition:color .4s}
+.story li:hover{color:var(--text)}
+.story li span{font-family:var(--serif);font-size:1.75rem;line-height:1.1;color:var(--text);font-variant-numeric:tabular-nums}
+
+/* contact */
+footer{padding:clamp(6rem,12vw,10rem) 0 2.5rem}
+.cta{display:inline-flex;align-items:center;gap:.75rem;min-height:3.25rem;padding:0 1.75rem;border-radius:999px;background:var(--text);color:var(--bg);font-weight:500;transition:transform .5s var(--ease),box-shadow .5s}
+.cta:hover{transform:translateY(-.125rem);box-shadow:0 20px 50px -20px rgba(251,191,36,.6)}
+.end{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;margin-top:7rem;padding-top:1.25rem;border-top:1px solid var(--line)}
+
+@media (max-width:860px){
+  .hero,.split,.ing,.apps{grid-template-columns:1fr}
+  .hero{gap:3rem}.arch-wrap{max-width:20rem}
+  .notes{grid-template-columns:1fr}
+  .trio{grid-template-columns:1fr}
+  .nav ul{gap:1rem}.nav li:nth-child(4){display:none}
+  .story li{grid-template-columns:4.5rem minmax(0,1fr)}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}.glow{display:none}
+}
 </style>
 </head>
 <body>
-<main>
-<p class="label">Personal website</p>
-<h1>Aylin Aydın<span style="color:#68816b">.</span></h1>
-<p class="message">Something new is taking shape.<br>Coming soon.</p>
-<div class="line" aria-hidden="true"></div>
-<footer><a href="https://github.com/aylinaydincs">GitHub</a></footer>
+<div class="grain" aria-hidden="true"></div>
+<div class="glow" id="glow" aria-hidden="true"></div>
+<canvas id="field" aria-hidden="true"></canvas>
+
+<header class="site">
+  <nav class="wrap nav" aria-label="Main">
+    <a class="brand" href="#top">Aylin</a>
+    <ul>
+      <li><a class="ln" href="#thesis" data-sec="thesis">Thesis</a></li>
+      <li><a class="ln" href="#work" data-sec="work">Work</a></li>
+      <li><a class="ln" href="#apps" data-sec="apps">Apps</a></li>
+      <li><a class="ln" href="#story" data-sec="story">Story</a></li>
+      <li><a class="ln" href="cv.html">CV</a></li>
+    </ul>
+  </nav>
+  <div id="tide" aria-hidden="true"></div>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <div>
+      <p class="mono boot" id="boot" aria-label="Applied AI Engineer — computer vision, generative AI, agentic systems"></p>
+      <h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Aylin</h1>
+      <canvas id="name" role="img" aria-label="Aylin, written in particles that ripple like water"></canvas>
+      <p class="mono" style="color:var(--faint)">move · ripple — click · bubbles</p>
+      <p class="lead">I'm an Applied AI Engineer with a background in computer vision, generative AI and production ML. I build systems that see faces, give them voices and reason through decisions <span class="it">— then measure whether they really do.</span></p>
+      <div class="coords mono">
+        <span>41.0082° N · 28.9784° E</span>
+        <span>Istanbul · <span id="clock">--:--</span></span>
+        <span>Open to UK · EU · US</span>
+      </div>
+    </div>
+    <figure class="arch-wrap" style="margin:0">
+      <div class="plate arch photo">
+        <img src="assets/aylin.jpg" alt="Aylin on a clifftop above the sea, wearing sunglasses and a striped cardigan" width="880" height="1073" fetchpriority="high">
+      </div>
+      <figcaption class="cap mono">
+        <span>fig. 00 — off the clock</span>
+        <a class="ln" href="#thesis" style="white-space:nowrap">her avatar → 01</a>
+      </figcaption>
+    </figure>
+  </div>
+
+  <section id="thesis">
+    <div class="wrap">
+      <div class="label mono rv"><span>01 — Master's thesis · published</span><span>Boğaziçi University · IEEE SIU 2026</span></div>
+      <div class="split rv">
+        <h2 data-scramble>Giving a voice <span class="it">a face.</span></h2>
+        <p class="body">How much identity and realism survive when a 3D talking head is built from very little? I built the full PyTorch pipeline and ran controlled ablations on input images and diffusion steps.</p>
+      </div>
+      <div class="chain rv" aria-label="Pipeline">
+        <span>speech</span><i>→</i><span>DiffPoseTalk</span><i>→</i><span>FLAME motion</span><i>→</i><span>CAP4D Gaussians</span><i>→</i><span>avatar</span>
+      </div>
+      <div class="rv" role="region" aria-roledescription="carousel" aria-label="Thesis results">
+        <div class="plate wide slider" id="tslider">
+          <div class="tslide on" aria-label="1 of 2">
+            <video id="talk" src="assets/thesis-speech.mp4" autoplay muted loop playsinline aria-label="My talking avatar, generated from speech by my thesis pipeline"></video>
+          </div>
+          <div class="tslide" aria-label="2 of 2" aria-hidden="true">
+            <video src="assets/thesis-avatar.mp4" autoplay muted loop playsinline aria-label="Ablation grid of generated avatars"></video>
+          </div>
+          <button class="btn sound" id="sound" type="button" aria-pressed="false">Sound on</button>
+        </div>
+        <div class="cap mono" style="align-items:center">
+          <span id="tcap">fig. 01 — my generated avatar, driven by my own voice</span>
+          <span style="display:flex;align-items:center;gap:.75rem">
+            <span class="dots"><button type="button" class="dot on" aria-label="Show talking avatar" data-i="0"></button><button type="button" class="dot" aria-label="Show ablation grid" data-i="1"></button></span>
+            <button class="step" id="tprev" type="button" aria-label="Previous">←</button><button class="step" id="tnext" type="button" aria-label="Next">→</button>
+          </span>
+        </div>
+      </div>
+      <div class="stats rv" id="stats">
+        <div class="stat"><b>~<span id="speed">1</span>×</b><span class="mono">faster avatar generation</span></div>
+        <div class="stat"><b>240→<span id="mins">240</span></b><span class="mono">minutes on one A40</span></div>
+        <div class="stat"><b>≈</b><span class="mono">comparable PSNR · LPIPS · CSIM · JOD</span></div>
+      </div>
+      <a class="paper rv" href="https://ieeexplore.ieee.org/document/11637014" target="_blank" rel="noopener">
+        <span class="mono" style="color:var(--amber)">Paper</span>
+        <span>Published in the IEEE SIU 2026 proceedings</span>
+        <span class="go">IEEE Xplore ↗</span>
+      </a>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="wrap">
+      <div class="label mono rv"><span>02 — Selected work</span><span>2022 — 2026</span></div>
+
+      <div class="rv">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:1.5rem">
+          <div style="max-width:34rem">
+            <h3 data-scramble>Loomis</h3>
+            <p class="body" style="margin-top:1rem">One image in; line art and a step-by-step drawing lesson out — every instruction tied to the strokes it reveals.</p>
+          </div>
+          <div class="tabs" role="tablist" aria-label="Loomis examples">
+            <button class="tab" role="tab" aria-selected="true" data-tab="dog">Dog</button>
+            <button class="tab" role="tab" aria-selected="false" data-tab="house">House &amp; tree</button>
+            <button class="tab" role="tab" aria-selected="false" data-tab="cat">Cat</button>
+          </div>
+        </div>
+        <div class="trio" id="trio">
+          <figure style="margin:0"><div class="plate"><img id="la" src="assets/loomis/dog-source.jpg" alt="Source photo"></div><figcaption class="cap mono"><span>a · source</span></figcaption></figure>
+          <figure style="margin:0"><div class="plate contain"><img id="lb" src="assets/loomis/dog-lineart.png" alt="Generated line art"></div><figcaption class="cap mono"><span>b · line art</span></figcaption></figure>
+          <figure style="margin:0"><div class="plate contain"><video id="lc" src="assets/loomis/dog-lesson.mp4" autoplay muted loop playsinline aria-label="Drawing lesson, stroke by stroke"></video></div><figcaption class="cap mono"><span>c · lesson, stroke by stroke</span></figcaption></figure>
+        </div>
+      </div>
+
+      <div class="ing rv">
+        <div>
+          <div class="frame"><video src="assets/ing-demo.mp4" autoplay muted loop playsinline aria-label="Investment Committee Copilot demo"></video></div>
+          <div class="cap mono"><span>fig. 02 — demo · 2× speed</span><span>Team EyAy</span></div>
+        </div>
+        <div>
+          <p class="mono" style="color:var(--amber)">2nd place · ING Agentic AI Hackathon</p>
+          <h3 data-scramble style="margin-top:1rem">Investment Committee Copilot</h3>
+          <p class="body" style="margin-top:1.125rem">Multi-agent decision support for relationship managers. Deterministic rules rank products, an independent agent challenges the risk, and a copilot explains every decision with its evidence.</p>
+          <dl class="evidence">
+            <div><dt>24/24</dt><dd class="mono">scenarios passed</dd></div>
+            <div><dt>7/7</dt><dd class="mono">seeds reproduced</dd></div>
+            <div><dt>0/15</dt><dd class="mono">pilot violations</dd></div>
+          </dl>
+          <div class="plate slide"><img id="slide" src="assets/ing/slide-02.jpg" alt="Presentation slide 1 of 12"></div>
+          <div class="cap mono" style="align-items:center">
+            <span id="slideNo">slide 01 / 12</span>
+            <span style="display:flex;gap:.5rem"><button class="step" id="prev" type="button" aria-label="Previous slide">←</button><button class="step" id="next" type="button" aria-label="Next slide">→</button></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="notes rv">
+        <a class="note" href="https://vectorgen-ai.ai.studio/" target="_blank" rel="noopener">
+          <span class="mono">Research · live demo</span>
+          <h4>SVG-LLM</h4>
+          <p>Single-shot vs five-stage SVG generation across ChatGPT, Gemini and Claude. Five-stage scored 0.922 vs 0.890.</p>
+          <span class="foot go">Try VectorGen ↗</span>
+        </a>
+        <a class="note" href="https://github.com/tensorflow/similarity/pull/291" target="_blank" rel="noopener">
+          <span class="mono">Open source · GSoC 2022</span>
+          <h4>ArcFace</h4>
+          <p>ArcFace loss for metric learning in TensorFlow Similarity — implementation, tests and documentation.</p>
+          <span class="foot go">tensorflow/similarity #291 ↗</span>
+        </a>
+        <div class="note" style="border-style:dashed">
+          <span class="mono"><span class="pulse" aria-hidden="true"></span>In progress</span>
+          <h4>AgentLab</h4>
+          <p>A support copilot and evaluation harness: can an agent find the right evidence, call the right tool, and ask when it isn't sure?</p>
+          <span class="foot mono" style="text-transform:none;letter-spacing:0">Planned · Python baseline vs LangGraph · completion, tool-call correctness, latency, tokens</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="apps">
+    <div class="wrap">
+      <div class="label mono rv"><span>03 — Indie iOS</span><span>made at home</span></div>
+      <div class="apps rv">
+        <div>
+          <h3 data-scramble>Small apps, <span class="it">shipped together.</span></h3>
+          <p class="body" style="margin-top:1.25rem">My husband Eyüb leads development; I prepare App Store submissions and work through review feedback — the part that starts after the first build.</p>
+          <a class="ln go" style="display:inline-block;margin-top:1.5rem;font-size:.9375rem" href="https://apps.apple.com/tr/developer/aylin-aydin-topcan/id1855650146" target="_blank" rel="noopener">All apps on the App Store ↗</a>
+        </div>
+        <div>
+          <div class="icons" role="tablist" aria-label="Apps" id="icons"></div>
+          <div class="panel" id="panel" role="tabpanel" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="story">
+    <div class="wrap">
+      <div class="label mono rv"><span>04 — The story so far</span><span>26 · Istanbul</span></div>
+      <p class="lead rv" style="max-width:46rem;margin:0">Curious about how things work — in models, in new cities, and twenty metres below the surface. Off the clock I travel, chase new things, and dive.</p>
+      <ol class="story rv">
+        <li><span>2000</span>Born on 13 June. Asking "but how does it work?" ever since.</li>
+        <li><span>2018</span>Computer Science at Özyeğin University, Istanbul, on a full scholarship. High honors; TA for Data Structures &amp; Algorithms.</li>
+        <li><span>2022</span>1st at a UI/UX hackathon, 3rd at AlgoRun, TÜBİTAK-funded segmentation research, and ArcFace for TensorFlow through Google Summer of Code.</li>
+        <li><span>2023</span>Computer vision research engineer at Syntonym — real-time face and license-plate anonymization.</li>
+        <li><span>2024</span>MSc at Boğaziçi University. Fell for 3D faces, Gaussian splats and diffusion.</li>
+        <li><span>2025</span>Machine Learning Engineer at Intuition Machines, remote with a US team — multimodal LLM tools and production ML pipelines.</li>
+        <li><span style="color:var(--accent)">2026</span>Thesis published at IEEE SIU. 2nd at the ING Agentic AI Hackathon. Ready for what comes next.</li>
+      </ol>
+    </div>
+  </section>
 </main>
+
+<footer>
+  <div class="wrap">
+    <p class="mono rv">05 — Signal</p>
+    <h2 class="rv" data-scramble style="margin:1.5rem 0 2.5rem;font-size:clamp(3rem,8vw,6.5rem)">Say <span class="it">hello.</span></h2>
+    <a class="cta rv" href="mailto:aylinaydin216@gmail.com">aylinaydin216@gmail.com <span aria-hidden="true">→</span></a>
+    <div class="end mono">
+      <span>© 2026 Aylin</span>
+      <span style="display:flex;gap:1.5rem;flex-wrap:wrap">
+        <a class="ln" href="https://www.linkedin.com/in/aylinaydincs" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="ln" href="https://github.com/aylinaydincs" target="_blank" rel="noopener">GitHub</a>
+        <a class="ln" href="https://www.instagram.com/aylin.aydin/" target="_blank" rel="noopener">Instagram</a>
+        <a class="ln" href="cv.html">CV</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $ = (s) => document.querySelector(s);
+
+  /* ── clock ── */
+  const tick = () => { try { $('#clock').textContent = new Date().toLocaleTimeString('en-GB', { timeZone: 'Europe/Istanbul', hour: '2-digit', minute: '2-digit' }); } catch (e) {} };
+  tick(); setInterval(tick, 30000);
+
+  /* ── boot line: types itself once ── */
+  const bootText = '› applied ai engineer · computer vision · generative ai · agentic systems';
+  const boot = $('#boot');
+  if (reduce) boot.textContent = bootText;
+  else { let i = 0; const c = document.createElement('span'); c.className = 'caret'; boot.appendChild(c);
+    const t = setInterval(() => { boot.firstChild.nodeType === 3 ? boot.firstChild.textContent = bootText.slice(0, ++i) : boot.insertBefore(document.createTextNode(bootText.slice(0, ++i)), c); if (i >= bootText.length) clearInterval(t); }, 28); }
+
+  /* ── scramble headings as they enter ── */
+  const glyphs = '01<>/\\{}[]#*+=_-·';
+  const scramble = (el) => {
+    const nodes = []; const walk = (n) => n.childNodes.forEach((c) => c.nodeType === 3 ? nodes.push([c, c.textContent]) : walk(c)); walk(el);
+    const t0 = performance.now(), d = 700;
+    const step = (t) => { const k = Math.min(1, (t - t0) / d);
+      nodes.forEach(([n, s]) => { const keep = Math.floor(s.length * k); n.textContent = s.slice(0, keep) + s.slice(keep).replace(/\S/g, () => glyphs[Math.random() * glyphs.length | 0]); });
+      if (k < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  };
+
+  /* ── reveal + scramble + active nav ── */
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (!e.isIntersecting) return; e.target.classList.add('in'); e.target.querySelectorAll('[data-scramble]').forEach((h) => { if (!reduce && !h.dataset.done) { h.dataset.done = 1; scramble(h); } }); if (e.target.matches('[data-scramble]') && !reduce && !e.target.dataset.done) { e.target.dataset.done = 1; scramble(e.target); } io.unobserve(e.target); }), { threshold: 0.15 });
+  document.querySelectorAll('.rv').forEach((el) => io.observe(el));
+  const links = document.querySelectorAll('[data-sec]');
+  const secIO = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) links.forEach((a) => a.classList.toggle('on', a.dataset.sec === e.target.id)); }), { rootMargin: '-45% 0px -50% 0px' });
+  document.querySelectorAll('section[id]').forEach((s) => secIO.observe(s));
+
+  /* ── scroll: tide line + the night slowly changes colour ── */
+  const stops = [[11, 15, 20], [8, 20, 30], [12, 16, 22], [20, 15, 14]];
+  const tide = $('#tide');
+  const onScroll = () => {
+    const h = document.documentElement, f = Math.min(1, Math.max(0, h.scrollTop / (h.scrollHeight - h.clientHeight || 1)));
+    tide.style.transform = 'scaleX(' + f + ')';
+    const x = f * (stops.length - 1), i = Math.min(stops.length - 2, Math.floor(x)), k = x - i;
+    document.body.style.backgroundColor = 'rgb(' + stops[i].map((v, j) => Math.round(v + (stops[i + 1][j] - v) * k)).join(',') + ')';
+  };
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  /* ── cursor light ── */
+  const glow = $('#glow'); let gx = 0, gy = 0, tx = 0, ty = 0;
+  if (!reduce) {
+    addEventListener('pointermove', (e) => { if (e.pointerType !== 'mouse') return; tx = e.clientX; ty = e.clientY; glow.style.opacity = 1; }, { passive: true });
+    document.addEventListener('pointerleave', () => glow.style.opacity = 0);
+    (function drift() { gx += (tx - gx) * 0.12; gy += (ty - gy) * 0.12; glow.style.transform = 'translate3d(' + gx + 'px,' + gy + 'px,0)'; requestAnimationFrame(drift); })();
+  }
+
+  /* ── latent field: faint drifting points, parallax with scroll ── */
+  const fc = $('#field'), fx = fc.getContext('2d'); let pts = [], fw = 0, fh = 0, dpr = 1;
+  const seed = () => { dpr = devicePixelRatio || 1; fw = innerWidth; fh = innerHeight; fc.width = fw * dpr; fc.height = fh * dpr;
+    pts = Array.from({ length: Math.round(fw * fh / 14000) }, () => ({ x: Math.random() * fw, y: Math.random() * fh * 3, z: .3 + Math.random() * .7, r: Math.random() * 1.1 + .2 })); };
+  seed(); addEventListener('resize', seed);
+  (function field(t) { fx.setTransform(dpr, 0, 0, dpr, 0, 0); fx.clearRect(0, 0, fw, fh); const sy = scrollY;
+    for (const p of pts) { const y = ((p.y - sy * p.z * .25) % (fh * 3) + fh * 3) % (fh * 3) - fh; if (y < -4 || y > fh + 4) continue;
+      const x = p.x + (reduce ? 0 : Math.sin((t || 0) / 4000 + p.y) * 6 * p.z);
+      fx.globalAlpha = .12 + p.z * .25; fx.fillStyle = p.z > .92 ? '#38bdf8' : '#f3f4f6'; fx.beginPath(); fx.arc(x, y, p.r, 0, 6.283); fx.fill(); }
+    if (!reduce) requestAnimationFrame(field); })();
+
+  /* ── particle name: ripple on move, bubbles on click ── */
+  const cv = $('#name'), g = cv.getContext('2d'); let parts = [], bubbles = [], W = 0, H = 0, pr = 1, rad = 1; const m = { x: -1e4, y: -1e4 };
+  const build = () => { pr = devicePixelRatio || 1; W = cv.clientWidth; H = cv.clientHeight; if (!W || !H) return; cv.width = W * pr; cv.height = H * pr;
+    const o = document.createElement('canvas').getContext('2d'); o.canvas.width = W; o.canvas.height = H;
+    let size = H * 1.02; o.font = '300 ' + size + 'px Newsreader, serif'; const tw = o.measureText('Aylin').width;
+    if (tw > W * .98) { size *= W * .98 / tw; o.font = '300 ' + size + 'px Newsreader, serif'; }
+    o.fillText('Aylin', 0, H * .8); const d = o.getImageData(0, 0, W, H).data, gap = Math.max(4, Math.round(W / 230)), old = parts; parts = [];
+    for (let y = 0; y < H; y += gap) for (let x = 0; x < W; x += gap) if (d[(y * W + x) * 4 + 3] > 128) { const q = old[parts.length]; parts.push({ hx: x, hy: y, x: q ? q.x : x + (Math.random() - .5) * 400, y: q ? q.y : y + (Math.random() - .5) * 200, vx: 0, vy: 0, c: Math.random() < .07 ? '#38bdf8' : '#f3f4f6' }); }
+    rad = gap * .34; };
+  const pos = (e) => { const r = cv.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; };
+  cv.addEventListener('pointermove', (e) => Object.assign(m, pos(e)));
+  cv.addEventListener('pointerleave', () => { m.x = m.y = -1e4; });
+  cv.addEventListener('pointerdown', (e) => { const q = pos(e);
+    parts.forEach((p) => { const dx = p.x - q.x, dy = p.y - q.y, d = Math.hypot(dx, dy) || 1; if (d < 160) { p.vx += dx / d * (160 - d) * .18; p.vy += dy / d * (160 - d) * .18; } });
+    for (let i = 0; i < 14; i++) bubbles.push({ x: q.x + (Math.random() - .5) * 40, y: q.y, r: 2 + Math.random() * 7, s: .6 + Math.random() * 1.6, a: .9, p: Math.random() * 6 }); });
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => { build(); if (window.ResizeObserver) new ResizeObserver(build).observe(cv); loop(); });
+  function loop() { const t = performance.now() / 1000; g.setTransform(pr, 0, 0, pr, 0, 0); g.clearRect(0, 0, W, H);
+    for (const p of parts) {
+      if (reduce) { p.x = p.hx; p.y = p.hy; } else {
+        const dx = p.x - m.x, dy = p.y - m.y, d2 = dx * dx + dy * dy; if (d2 < 8100) { const d = Math.sqrt(d2) || 1, f = (1 - d / 90) * 2.2; p.vx += dx / d * f; p.vy += dy / d * f; }
+        p.vx += (p.hx - p.x) * .04; p.vy += (p.hy + Math.sin(t * 1.3 + p.hx * .02) * 1.1 - p.y) * .04; p.vx *= .86; p.vy *= .86; p.x += p.vx; p.y += p.vy; }
+      g.fillStyle = p.c; g.beginPath(); g.arc(p.x, p.y, rad, 0, 6.283); g.fill(); }
+    bubbles = bubbles.filter((b) => b.a > .02);
+    for (const b of bubbles) { b.y -= b.s; b.x += Math.sin(t * 3 + b.p) * .4; b.a *= .985; g.strokeStyle = 'rgba(56,189,248,' + b.a + ')'; g.beginPath(); g.arc(b.x, b.y, b.r, 0, 6.283); g.stroke(); }
+    requestAnimationFrame(loop); }
+
+  /* ── thesis slider: talking avatar ↔ ablation grid ── */
+  const talk = $('#talk'), snd = $('#sound'), tsl = document.querySelectorAll('.tslide'), dots = document.querySelectorAll('.dot');
+  const caps = ['fig. 01 — my generated avatar, driven by my own voice', 'fig. 02 — ablation grid · input images – DDIM steps, 840-100 → 105-50'];
+  let ti = 0;
+  const tshow = (n) => { ti = (n + tsl.length) % tsl.length;
+    tsl.forEach((el, i) => { el.classList.toggle('on', i === ti); el.setAttribute('aria-hidden', i !== ti); });
+    dots.forEach((d, i) => d.classList.toggle('on', i === ti));
+    $('#tcap').textContent = caps[ti]; snd.hidden = ti !== 0;
+    if (ti !== 0 && !talk.muted) { talk.muted = true; snd.textContent = 'Sound on'; snd.setAttribute('aria-pressed', false); } };
+  $('#tprev').addEventListener('click', () => tshow(ti - 1)); $('#tnext').addEventListener('click', () => tshow(ti + 1));
+  dots.forEach((d) => d.addEventListener('click', () => tshow(+d.dataset.i)));
+  snd.addEventListener('click', () => { const on = talk.muted; talk.muted = !on; if (on) { talk.currentTime = 0; talk.play(); } snd.textContent = on ? 'Sound off' : 'Sound on'; snd.setAttribute('aria-pressed', on); });
+
+  /* ── thesis count-up ── */
+  const stats = $('#stats'), sp = $('#speed'), mn = $('#mins');
+  const done = () => { sp.textContent = '4'; mn.textContent = '60'; };
+  if (reduce) done(); else new IntersectionObserver((es, o) => { if (!es[0].isIntersecting) return; o.disconnect(); const t0 = performance.now();
+    (function up(t) { const x = Math.min(1, (t - t0) / 1600), k = 1 - Math.pow(1 - x, 3); sp.textContent = (1 + 3 * k).toFixed(1).replace('.0', ''); mn.textContent = Math.round(240 - 180 * k); if (x < 1) requestAnimationFrame(up); })(t0); }, { threshold: .4 }).observe(stats);
+
+  /* ── cross-fade helper ── */
+  const swap = (el, fn) => { if (reduce) return fn(); el.classList.add('out'); setTimeout(() => { fn(); requestAnimationFrame(() => el.classList.remove('out')); }, 220); };
+
+  /* ── Loomis tabs ── */
+  const trio = $('#trio');
+  document.querySelectorAll('.tab').forEach((b) => b.addEventListener('click', () => {
+    if (b.getAttribute('aria-selected') === 'true') return;
+    document.querySelectorAll('.tab').forEach((x) => x.setAttribute('aria-selected', x === b));
+    const k = b.dataset.tab;
+    swap(trio, () => { $('#la').src = 'assets/loomis/' + k + '-source.jpg'; $('#lb').src = 'assets/loomis/' + k + '-lineart.png'; $('#lc').src = 'assets/loomis/' + k + '-lesson.mp4'; $('#lc').play().catch(() => {}); });
+  }));
+
+  /* ── ING slides ── */
+  const slides = ['02','03','04','05','06','07','08','09','10','11','12','14']; let si = 0; const simg = $('#slide');
+  const show = (n) => { si = (n + slides.length) % slides.length; simg.style.opacity = 0;
+    setTimeout(() => { simg.src = 'assets/ing/slide-' + slides[si] + '.jpg'; simg.alt = 'Presentation slide ' + (si + 1) + ' of ' + slides.length; $('#slideNo').textContent = 'slide ' + String(si + 1).padStart(2, '0') + ' / ' + slides.length; simg.onload = () => simg.style.opacity = 1; }, reduce ? 0 : 200); };
+  $('#prev').addEventListener('click', () => show(si - 1)); $('#next').addEventListener('click', () => show(si + 1));
+
+  /* ── apps ── */
+  const apps = [
+    { n: 'KitchenSync: Stop Waste', i: 'assets/apps/kitchensync.png', m: 'K', s: 'On the App Store', t: 'A shared kitchen inventory app that helps households see what they already have and use it before it goes to waste.', u: 'https://apps.apple.com/es/app/kitchensync-stop-waste/id6755695869' },
+    { n: 'HomeSync: House Chores Tracker', i: 'assets/apps/homesync.png', m: 'H', s: 'On the App Store', t: 'A shared household planner for assigning chores, setting recurring routines, and keeping track of what still needs attention.', u: 'https://apps.apple.com/tr/app/homesync-house-chores-tracker/id6758911470' },
+    { n: 'Piggy Bank: Investment Tracker', i: 'assets/apps/piggybank.png', m: 'P', s: 'On the App Store', t: 'Income, expenses, savings goals and investments in one place, so users can see how their net worth changes over time.', u: 'https://apps.apple.com/tr/app/piggy-bank-investment-tracker/id6757369261' },
+    { n: 'OOTD: track your outfits', i: 'assets/apps/ootd.png', m: 'O', s: 'On the App Store · update in progress', t: 'A digital wardrobe for organizing clothing, putting together outfits, and keeping track of what you wore.', u: 'https://apps.apple.com/cd/app/ootd-track-your-outfits/id6758911066' },
+    { n: 'Ahoy! Ship Battle', i: 'assets/apps/ahoy.png', m: 'A', s: 'Iterating after App Review', t: 'A pirate-themed game tested through TestFlight — rewarded ads, cloud saves and an optional Captain’s Pass. Using review feedback for the next version.', u: '' },
+    { n: 'Sky Duel: dogfight', i: 'assets/apps/skyduel.png', m: 'S', s: 'Preparing for submission', t: 'An early iOS game experiment built around aerial dogfights, getting ready for its first App Store submission.', u: '' }
+  ];
+  const icons = $('#icons'), panel = $('#panel'); let ai = 0;
+  const paint = () => { const a = apps[ai];
+    panel.innerHTML = '';
+    const top = document.createElement('div'); top.style.cssText = 'display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75rem;align-items:baseline';
+    const h = document.createElement('h4'); h.textContent = a.n; h.style.cssText = 'font-family:var(--serif);font-weight:300;font-size:1.625rem;margin:0';
+    const st = document.createElement('span'); st.className = 'mono'; st.textContent = a.s; st.style.color = a.u ? 'var(--accent)' : 'var(--amber)';
+    top.append(h, st); const p = document.createElement('p'); p.className = 'body'; p.style.marginTop = '.75rem'; p.textContent = a.t; panel.append(top, p);
+    if (a.u) { const l = document.createElement('a'); l.className = 'ln go'; l.href = a.u; l.target = '_blank'; l.rel = 'noopener'; l.textContent = 'View on the App Store ↗'; l.style.cssText = 'display:inline-block;margin-top:1rem;font-size:.875rem'; panel.append(l); } };
+  apps.forEach((a, i) => { const b = document.createElement('button'); b.className = 'icon'; b.type = 'button'; b.setAttribute('role', 'tab'); b.setAttribute('aria-label', a.n); b.setAttribute('aria-selected', i === 0); if (a.i) { b.classList.add('img'); const im = document.createElement('img'); im.src = a.i; im.alt = ''; im.width = 128; im.height = 128; im.loading = 'lazy'; b.append(im); } else b.textContent = a.m;
+    b.addEventListener('click', () => { if (i === ai) return; ai = i; icons.querySelectorAll('.icon').forEach((x, j) => x.setAttribute('aria-selected', j === i)); swap(panel, paint); }); icons.append(b); });
+  paint();
+})();
+</script>
 </body>
 </html>
