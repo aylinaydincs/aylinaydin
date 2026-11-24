@@ -175,6 +175,46 @@ footer{padding:clamp(6rem,12vw,10rem) 0 2.5rem}
 .cta:hover{transform:translateY(-.125rem);box-shadow:0 20px 50px -20px rgba(251,191,36,.6)}
 .end{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;margin-top:7rem;padding-top:1.25rem;border-top:1px solid var(--line)}
 
+
+/* toolkit: five plates fanned out of a dark glass folder */
+.tk-stage{position:relative;height:34rem;margin-top:2rem}
+.tk-card{position:absolute;left:50%;top:24rem;width:150px;height:160px;margin:-80px 0 0 -75px;padding:0;border:0;background:none;cursor:pointer;opacity:0;z-index:3}
+.tk-card svg{display:block;filter:drop-shadow(0 22px 30px rgba(0,0,0,.6));transition:transform .5s var(--ease),filter .5s}
+.tk-card:hover,.tk-card:focus-visible,.tk-card.sel{z-index:9!important}
+.tk-card:hover svg,.tk-card:focus-visible svg,.tk-card.sel svg{transform:translateY(-1.75rem);filter:drop-shadow(0 26px 40px rgba(251,191,36,.28))}
+.tk-tag{position:absolute;left:108px;top:-36px;display:flex;align-items:flex-start;gap:2px;white-space:nowrap;pointer-events:none;opacity:0;transform:translate(-6px,6px) scale(.9);transition:opacity .25s,transform .4s var(--ease)}
+.tk-card:hover .tk-tag,.tk-card:focus-visible .tk-tag,.tk-card.sel .tk-tag{opacity:1;transform:none}
+.tk-tag span{margin-top:14px;padding:4px 9px 5px;border-radius:3px 9px 9px 9px;background:var(--accent);color:var(--bg);font-weight:500;font-size:.75rem}
+.tk-back{position:absolute;left:50%;top:24rem;width:300px;height:230px;margin:-115px 0 0 -150px;z-index:1;pointer-events:none}
+.tk-paper{position:absolute;border-radius:10px;transition:transform 1s var(--ease)}
+.tk-folder{position:absolute;left:50%;top:24rem;width:300px;height:280px;margin:-115px 0 0 -150px;padding:0;border:0;background:none;cursor:pointer;z-index:5;perspective:900px;color:var(--muted)}
+.tk-flap{position:absolute;left:0;top:62px;width:300px;height:168px;border-radius:18px 18px 20px 20px;background:rgba(24,31,40,.94);backdrop-filter:blur(10px);border:1px solid rgba(243,244,246,.14);box-shadow:0 1px 0 rgba(255,255,255,.07) inset;transform-origin:50% 100%;transition:transform 1s var(--ease)}
+.tk.open .tk-flap{transform:rotateX(-48deg)}.tk.open .p1{transform:translateY(-26px) rotate(-3deg)}.tk.open .p2{transform:translateY(-14px) rotate(2deg)}
+.tk-panel{display:grid;grid-template-columns:14rem minmax(0,1fr);gap:1.5rem 3rem;padding:1.75rem 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);transition:opacity .32s ease,transform .32s var(--ease)}
+.tk-panel.out{opacity:0;transform:translateY(.375rem)}
+.tk-chips{display:flex;flex-wrap:wrap;gap:.375rem;margin-top:1rem}
+.tk-chips span{font-family:var(--mono);font-size:.75rem;border:1px solid var(--line);border-radius:999px;padding:.1875rem .625rem}
+@keyframes tke0{0%{transform:translate(0,40px) scale(.55);opacity:0;z-index:3}12%{opacity:1}50%{transform:translate(-84px,-150px) scale(.85) rotate(-8deg);z-index:7}100%{transform:translate(-280px,-200px) rotate(-16deg);opacity:1;z-index:7}}
+@keyframes tkr0{0%{transform:translate(-280px,-200px) rotate(-16deg);opacity:1;z-index:7}50%{transform:translate(-84px,-150px) scale(.85);z-index:7}100%{transform:translate(0,40px) scale(.55);opacity:0;z-index:3}}
+.tk.open .tk-card:nth-child(1){animation:tke0 1.5s var(--ease) 0.00s both}.tk.shut .tk-card:nth-child(1){animation:tkr0 .9s cubic-bezier(.55,0,.75,.35) 0.28s both}
+@keyframes tke1{0%{transform:translate(0,40px) scale(.55);opacity:0;z-index:3}12%{opacity:1}50%{transform:translate(-42px,-150px) scale(.85) rotate(-4deg);z-index:7}100%{transform:translate(-140px,-245px) rotate(-8deg);opacity:1;z-index:7}}
+@keyframes tkr1{0%{transform:translate(-140px,-245px) rotate(-8deg);opacity:1;z-index:7}50%{transform:translate(-42px,-150px) scale(.85);z-index:7}100%{transform:translate(0,40px) scale(.55);opacity:0;z-index:3}}
+.tk.open .tk-card:nth-child(2){animation:tke1 1.5s var(--ease) 0.18s both}.tk.shut .tk-card:nth-child(2){animation:tkr1 .9s cubic-bezier(.55,0,.75,.35) 0.21s both}
+@keyframes tke2{0%{transform:translate(0,40px) scale(.55);opacity:0;z-index:3}12%{opacity:1}50%{transform:translate(0px,-150px) scale(.85) rotate(0deg);z-index:7}100%{transform:translate(0px,-262px) rotate(0deg);opacity:1;z-index:7}}
+@keyframes tkr2{0%{transform:translate(0px,-262px) rotate(0deg);opacity:1;z-index:7}50%{transform:translate(0px,-150px) scale(.85);z-index:7}100%{transform:translate(0,40px) scale(.55);opacity:0;z-index:3}}
+.tk.open .tk-card:nth-child(3){animation:tke2 1.5s var(--ease) 0.36s both}.tk.shut .tk-card:nth-child(3){animation:tkr2 .9s cubic-bezier(.55,0,.75,.35) 0.14s both}
+@keyframes tke3{0%{transform:translate(0,40px) scale(.55);opacity:0;z-index:3}12%{opacity:1}50%{transform:translate(42px,-150px) scale(.85) rotate(4deg);z-index:7}100%{transform:translate(140px,-245px) rotate(8deg);opacity:1;z-index:7}}
+@keyframes tkr3{0%{transform:translate(140px,-245px) rotate(8deg);opacity:1;z-index:7}50%{transform:translate(42px,-150px) scale(.85);z-index:7}100%{transform:translate(0,40px) scale(.55);opacity:0;z-index:3}}
+.tk.open .tk-card:nth-child(4){animation:tke3 1.5s var(--ease) 0.54s both}.tk.shut .tk-card:nth-child(4){animation:tkr3 .9s cubic-bezier(.55,0,.75,.35) 0.07s both}
+@keyframes tke4{0%{transform:translate(0,40px) scale(.55);opacity:0;z-index:3}12%{opacity:1}50%{transform:translate(84px,-150px) scale(.85) rotate(8deg);z-index:7}100%{transform:translate(280px,-200px) rotate(16deg);opacity:1;z-index:7}}
+@keyframes tkr4{0%{transform:translate(280px,-200px) rotate(16deg);opacity:1;z-index:7}50%{transform:translate(84px,-150px) scale(.85);z-index:7}100%{transform:translate(0,40px) scale(.55);opacity:0;z-index:3}}
+.tk.open .tk-card:nth-child(5){animation:tke4 1.5s var(--ease) 0.72s both}.tk.shut .tk-card:nth-child(5){animation:tkr4 .9s cubic-bezier(.55,0,.75,.35) 0.00s both}
+@media (max-width:860px){
+  .tk-stage{height:auto;display:flex;gap:1rem;overflow-x:auto;padding:2.5rem 0 1.5rem;scroll-snap-type:x mandatory;margin-inline:calc(-1*clamp(1.25rem,5vw,3.5rem));padding-inline:clamp(1.25rem,5vw,3.5rem)}
+  .tk-card{position:relative;left:auto;top:auto;margin:0;flex:0 0 150px;opacity:1;animation:none!important;transform:none!important;scroll-snap-align:start}
+  .tk-back,.tk-folder{display:none}.tk-tag{left:70px}
+  .tk-panel{grid-template-columns:1fr}
+}
 @media (max-width:860px){
   .brand{font-size:1.0625rem}.nav ul{gap:.875rem}.nav{font-size:.8125rem}
   .hero,.split,.ing,.apps{grid-template-columns:1fr}
@@ -381,11 +421,44 @@ footer{padding:clamp(6rem,12vw,10rem) 0 2.5rem}
       </ol>
     </div>
   </section>
+
+  <section id="toolkit">
+    <div class="wrap">
+      <div class="label mono rv"><span>05 — Toolkit</span><span>what I bring to a team</span></div>
+      <div class="split rv">
+        <h2 data-scramble>Five things I build with, <span class="it">filed in one place.</span></h2>
+        <p class="body">Hover a plate to pull it out of the folder and see where I've already put it to work.</p>
+      </div>
+      <div class="tk rv" id="tk">
+        <div class="tk-stage">
+          <button class="tk-card" type="button" data-i="0" aria-label="Computer vision"><svg width="150" height="160" viewBox="0 0 150 160" aria-hidden="true"><rect width="150" height="160" rx="12" fill="#f2f2ee"/><text x="14" y="22" font-family="Geist Mono, monospace" font-size="8" letter-spacing=".8" fill="#6b7280">01 · VISION</text><path d="M22 84q53-46 106 0q-53 46-106 0z" fill="none" stroke="#1f2937" stroke-width="1.5"/><circle cx="75" cy="84" r="18" fill="none" stroke="#0284c7" stroke-width="1.5"/><circle cx="75" cy="84" r="7" fill="#1f2937"><animate attributeName="r" values="7;5;7" dur="3s" repeatCount="indefinite"/></circle><path d="M18 56v-10h10M122 46h10v10M132 112v10h-10M28 122H18v-10" fill="none" stroke="#1f2937" stroke-width="1.5" stroke-linecap="round"/><rect x="18" y="46" width="114" height="1" fill="#0284c7" opacity=".7"><animate attributeName="y" values="46;121;46" dur="3.2s" repeatCount="indefinite"/></rect><text x="14" y="146" font-family="Geist Mono, monospace" font-size="8" fill="#6b7280">eye · conf 0.98</text></svg><span class="tk-tag" aria-hidden="true"><svg width="16" height="18" viewBox="0 0 18 20"><path d="M1.5 1.5l14 7.2-6.3 1.6-3.3 6.6z" fill="#38bdf8" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/></svg><span>Computer vision</span></span></button>
+          <button class="tk-card" type="button" data-i="1" aria-label="Agentic AI"><svg width="150" height="160" viewBox="0 0 150 160" aria-hidden="true"><rect width="150" height="160" rx="12" fill="#f2f2ee"/><text x="14" y="22" font-family="Geist Mono, monospace" font-size="8" letter-spacing=".8" fill="#6b7280">02 · AGENTS</text><path d="M75 52 34 96M75 52v44M75 52l41 44" stroke="#1f2937" stroke-width="1" opacity=".45"/><rect x="40" y="36" width="70" height="18" rx="9" fill="none" stroke="#1f2937" stroke-width="1.5"/><text x="75" y="48.5" text-anchor="middle" font-family="Geist Mono, monospace" font-size="8" fill="#1f2937">orchestrator</text><circle cx="34" cy="104" r="11" fill="none" stroke="#1f2937" stroke-width="1.5"/><circle cx="75" cy="104" r="11" fill="none" stroke="#1f2937" stroke-width="1.5"/><circle cx="116" cy="104" r="11" fill="none" stroke="#1f2937" stroke-width="1.5"/><circle cx="32.5" cy="102.5" r="4" fill="none" stroke="#1f2937" stroke-width="1.4"/><path d="M35.5 105.5l3.5 3.5" stroke="#1f2937" stroke-width="1.4" stroke-linecap="round"/><path d="M71 100.5l-3.5 3.5 3.5 3.5M79 100.5l3.5 3.5-3.5 3.5" fill="none" stroke="#1f2937" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M110 104l4 4 7-8" fill="none" stroke="#0284c7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><text x="34" y="132" text-anchor="middle" font-family="Geist Mono, monospace" font-size="7.5" fill="#6b7280">search</text><text x="75" y="132" text-anchor="middle" font-family="Geist Mono, monospace" font-size="7.5" fill="#6b7280">code</text><text x="116" y="132" text-anchor="middle" font-family="Geist Mono, monospace" font-size="7.5" fill="#6b7280">verify</text><circle r="3" fill="#0284c7"><animateMotion dur="3.6s" repeatCount="indefinite" path="M75 54L34 96L75 54L75 96L75 54L116 96L75 54"/></circle><text x="14" y="148" font-family="Geist Mono, monospace" font-size="8" fill="#6b7280">3/3 tools · done</text></svg><span class="tk-tag" aria-hidden="true"><svg width="16" height="18" viewBox="0 0 18 20"><path d="M1.5 1.5l14 7.2-6.3 1.6-3.3 6.6z" fill="#38bdf8" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/></svg><span>Agentic AI</span></span></button>
+          <button class="tk-card" type="button" data-i="2" aria-label="LLMs"><svg width="150" height="160" viewBox="0 0 150 160" aria-hidden="true"><rect width="150" height="160" rx="12" fill="#f2f2ee"/><text x="14" y="22" font-family="Geist Mono, monospace" font-size="8" letter-spacing=".8" fill="#6b7280">03 · LANGUAGE</text><rect x="58" y="36" width="78" height="20" rx="10" fill="none" stroke="#0284c7" stroke-width="1.5"/><rect x="68" y="44" width="46" height="3" rx="1.5" fill="#0284c7" opacity=".6"/><rect x="14" y="64" width="100" height="34" rx="10" fill="none" stroke="#1f2937" stroke-width="1.5"/><rect x="24" y="74" width="74" height="3" rx="1.5" fill="#1f2937" opacity=".5"/><rect x="24" y="84" width="54" height="3" rx="1.5" fill="#1f2937" opacity=".3"/><rect x="14" y="106" width="38" height="16" rx="8" fill="none" stroke="#1f2937" stroke-width="1.5"/><circle cx="25" cy="114" r="2.2" fill="#1f2937"><animate attributeName="opacity" values=".2;1;.2" dur="1.2s" repeatCount="indefinite"/></circle><circle cx="33" cy="114" r="2.2" fill="#1f2937"><animate attributeName="opacity" values=".2;1;.2" dur="1.2s" begin=".2s" repeatCount="indefinite"/></circle><circle cx="41" cy="114" r="2.2" fill="#1f2937"><animate attributeName="opacity" values=".2;1;.2" dur="1.2s" begin=".4s" repeatCount="indefinite"/></circle><text x="14" y="146" font-family="Geist Mono, monospace" font-size="8" fill="#6b7280">Claude · GPT · Gemini</text></svg><span class="tk-tag" aria-hidden="true"><svg width="16" height="18" viewBox="0 0 18 20"><path d="M1.5 1.5l14 7.2-6.3 1.6-3.3 6.6z" fill="#38bdf8" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/></svg><span>LLMs</span></span></button>
+          <button class="tk-card" type="button" data-i="3" aria-label="UI / UX"><svg width="150" height="160" viewBox="0 0 150 160" aria-hidden="true"><rect width="150" height="160" rx="12" fill="#f2f2ee"/><text x="14" y="22" font-family="Geist Mono, monospace" font-size="8" letter-spacing=".8" fill="#6b7280">04 · INTERFACE</text><rect x="22" y="32" width="106" height="100" rx="8" fill="none" stroke="#1f2937" stroke-width="1.5"/><path d="M22 44h106" stroke="#1f2937" stroke-width="1" opacity=".4"/><circle cx="30" cy="38" r="1.6" fill="#1f2937" opacity=".5"/><circle cx="36" cy="38" r="1.6" fill="#1f2937" opacity=".5"/><rect x="32" y="52" width="86" height="30" rx="4" fill="none" stroke="#1f2937" stroke-width="1" stroke-dasharray="3 3" opacity=".5"/><path d="M36 78l16-13 10 8 10-7 28 12" fill="none" stroke="#1f2937" stroke-width="1" opacity=".5"/><rect x="32" y="90" width="60" height="3" rx="1.5" fill="#1f2937" opacity=".35"/><rect x="32" y="98" width="44" height="3" rx="1.5" fill="#1f2937" opacity=".25"/><rect x="32" y="108" width="40" height="14" rx="7" fill="#0284c7"/><circle cx="52" cy="115" r="3" fill="none" stroke="#0284c7" stroke-width="1.2"><animate attributeName="r" values="3;14" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values=".8;0" dur="2s" repeatCount="indefinite"/></circle><g><animateTransform attributeName="transform" type="translate" values="30 12;0 0;0 0;30 12" keyTimes="0;.4;.7;1" dur="2s" repeatCount="indefinite"/><path d="M54 116l13 6-5.4 1.5-2.4 5.3z" fill="#1f2937" stroke="#f2f2ee" stroke-width="1.2" stroke-linejoin="round"/></g><text x="14" y="148" font-family="Geist Mono, monospace" font-size="8" fill="#6b7280">wireframe → ship</text></svg><span class="tk-tag" aria-hidden="true"><svg width="16" height="18" viewBox="0 0 18 20"><path d="M1.5 1.5l14 7.2-6.3 1.6-3.3 6.6z" fill="#38bdf8" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/></svg><span>UI / UX</span></span></button>
+          <button class="tk-card" type="button" data-i="4" aria-label="Product"><svg width="150" height="160" viewBox="0 0 150 160" aria-hidden="true"><rect width="150" height="160" rx="12" fill="#f2f2ee"/><text x="14" y="22" font-family="Geist Mono, monospace" font-size="8" letter-spacing=".8" fill="#6b7280">05 · PRODUCT</text><rect x="16" y="34" width="38" height="38" rx="9" fill="none" stroke="#1f2937" stroke-width="1.5"/><path d="M35 43l2.6 7.4 7.4 2.6-7.4 2.6L35 63l-2.6-7.4-7.4-2.6 7.4-2.6z" fill="#0284c7"/><rect x="62" y="38" width="60" height="5" rx="2.5" fill="#1f2937" opacity=".7"/><rect x="62" y="49" width="40" height="3.5" rx="1.75" fill="#1f2937" opacity=".3"/><rect x="62" y="58" width="34" height="13" rx="6.5" fill="none" stroke="#0284c7" stroke-width="1.5"><animate attributeName="width" values="34;34;48;48;34" keyTimes="0;.45;.55;.9;1" dur="3.2s" repeatCount="indefinite"/></rect><text x="79" y="67.5" text-anchor="middle" font-family="Geist, sans-serif" font-weight="600" font-size="7.5" fill="#0284c7">GET</text><rect x="16" y="82" width="34" height="48" rx="6" fill="none" stroke="#1f2937" stroke-width="1" opacity=".5"/><rect x="58" y="82" width="34" height="48" rx="6" fill="none" stroke="#1f2937" stroke-width="1" opacity=".5"/><rect x="100" y="82" width="34" height="48" rx="6" fill="none" stroke="#1f2937" stroke-width="1" opacity=".5"/><text x="14" y="148" font-family="Geist Mono, monospace" font-size="8" fill="#6b7280">live on the App Store</text></svg><span class="tk-tag" aria-hidden="true"><svg width="16" height="18" viewBox="0 0 18 20"><path d="M1.5 1.5l14 7.2-6.3 1.6-3.3 6.6z" fill="#38bdf8" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/></svg><span>Product</span></span></button>
+          <div class="tk-back" aria-hidden="true">
+            <div style="position:absolute;left:6px;top:0;width:118px;height:40px;border-radius:18px 18px 0 0;background:#141a22;border:1px solid rgba(243,244,246,.1);border-bottom:0"></div>
+            <div style="position:absolute;left:0;top:22px;width:300px;height:208px;border-radius:20px;background:#121820;border:1px solid rgba(243,244,246,.1);box-shadow:0 60px 100px -50px rgba(251,191,36,.3)"></div>
+            <div class="tk-paper p1" style="left:30px;top:30px;width:240px;height:150px;background:#f2f2ee;opacity:.22"></div>
+            <div class="tk-paper p2" style="left:44px;top:38px;width:212px;height:140px;background:#e6e6e1;opacity:.14"></div>
+          </div>
+          <button class="tk-folder" id="tkFolder" type="button" aria-expanded="false" aria-label="Open or close the toolkit">
+            <span class="tk-flap"><span class="mono" style="position:absolute;left:22px;top:18px;color:var(--faint)">Aylin / toolkit</span><span style="position:absolute;right:22px;top:16px;width:6px;height:6px;border-radius:50%;background:var(--amber);box-shadow:0 0 12px var(--amber)"></span></span>
+            <span class="mono" id="tkHint" style="position:absolute;left:0;right:0;top:248px;text-align:center;color:var(--faint)">open</span>
+          </button>
+        </div>
+        <div class="tk-panel" id="tkPanel" aria-live="polite">
+          <div><p class="mono" id="tkKick" style="color:var(--accent)"></p><h3 id="tkName" style="margin-top:.625rem;font-size:2rem"></h3></div>
+          <div><p class="body" id="tkProof" style="max-width:none;color:#d1d5db"></p><div class="tk-chips" id="tkChips"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer>
   <div class="wrap">
-    <p class="mono rv">05 — Signal</p>
+    <p class="mono rv">06 — Signal</p>
     <h2 class="rv" data-scramble style="margin:1.5rem 0 2.5rem;font-size:clamp(3rem,8vw,6.5rem)">Say <span class="it">hello.</span></h2>
     <a class="cta rv" href="mailto:aylinaydin216@gmail.com">aylinaydin216@gmail.com <span aria-hidden="true">→</span></a>
     <div class="end mono">
@@ -534,6 +607,25 @@ footer{padding:clamp(6rem,12vw,10rem) 0 2.5rem}
   const show = (n) => { si = (n + slides.length) % slides.length; simg.style.opacity = 0;
     setTimeout(() => { simg.src = 'assets/ing/slide-' + slides[si] + '.jpg'; simg.alt = 'Presentation slide ' + (si + 1) + ' of ' + slides.length; $('#slideNo').textContent = 'slide ' + String(si + 1).padStart(2, '0') + ' / ' + slides.length; simg.onload = () => simg.style.opacity = 1; }, reduce ? 0 : 200); };
   $('#prev').addEventListener('click', () => show(si - 1)); $('#next').addEventListener('click', () => show(si + 1));
+
+  /* ── toolkit: plates fan out of the folder once it scrolls into view ── */
+  const tk = $('#tk'), tkCards = [...document.querySelectorAll('.tk-card')], tkFolder = $('#tkFolder');
+  const tkData = [
+    { k: 'In production · in research', p: 'Shipped real-time face and license-plate anonymization at Syntonym, tuned for ONNX and edge hardware. Built speech-driven 3D Gaussian avatars for my MSc, published at IEEE SIU 2026.', t: ['PyTorch', 'OpenCV', 'ONNX', 'Segmentation', 'Gaussian Splatting'] },
+    { k: '2nd place · ING hackathon', p: 'A multi-agent investment committee in LangGraph: deterministic ranking, an independent risk challenger, and a copilot that cites its evidence. 24/24 scenarios passed. Next: AgentLab, an evaluation harness for support agents.', t: ['LangGraph', 'Tool calling', 'Human-in-the-loop', 'Evaluation'] },
+    { k: 'Multimodal · structured · measured', p: 'A multimodal Gemini app at Intuition Machines with JSON-Schema outputs, retrieval and automated tests. Benchmarked SVG generation across ChatGPT, Gemini and Claude: five stages beat one shot, 0.922 vs 0.890.', t: ['VLMs', 'RAG', 'Structured outputs', 'Benchmarking'] },
+    { k: '1st place · UI/UX hackathon', p: 'Won the GIG Sigorta UI/UX hackathon with a user-centred agency interface. I care how AI feels to use — this site, from design system to motion, is mine.', t: ['User flows', 'Design systems', 'Prototyping'] },
+    { k: 'Shipped to real users', p: 'Four iOS apps on the App Store, built side by side with Eyüb and taken through review. I start from a user and a metric — a beginner’s first drawing, a relationship manager’s meeting.', t: ['App Store', 'Iteration', 'Evaluation-first'] }
+  ];
+  let tkSel = -1;
+  const tkPick = (i) => { if (i === tkSel) return; tkSel = i; tkCards.forEach((c, j) => c.classList.toggle('sel', j === i));
+    swap($('#tkPanel'), () => { const d = tkData[i]; $('#tkKick').textContent = d.k; $('#tkName').textContent = tkCards[i].getAttribute('aria-label'); $('#tkProof').textContent = d.p;
+      const ch = $('#tkChips'); ch.textContent = ''; d.t.forEach((x) => { const sp = document.createElement('span'); sp.textContent = x; ch.append(sp); }); }); };
+  tkCards.forEach((c, i) => { c.addEventListener('mouseenter', () => tkPick(i)); c.addEventListener('focus', () => tkPick(i)); c.addEventListener('click', () => tkPick(i)); });
+  const tkSet = (open) => { tk.classList.toggle('open', open); tk.classList.toggle('shut', !open); tkFolder.setAttribute('aria-expanded', open); $('#tkHint').textContent = open ? 'file them back' : 'open'; };
+  tkFolder.addEventListener('click', () => tkSet(!tk.classList.contains('open')));
+  tkPick(0);
+  new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { o.disconnect(); setTimeout(() => tkSet(true), reduce ? 0 : 300); } }, { threshold: .45 }).observe(tk);
 
   /* ── apps ── */
   const apps = [
