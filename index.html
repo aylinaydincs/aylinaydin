@@ -125,6 +125,13 @@ p{margin:0}
 .frame{border-radius:.75rem;overflow:hidden;border:1px solid var(--line);background:#000;aspect-ratio:1280/831;transition:transform .6s var(--ease),box-shadow .6s}
 .frame:hover{transform:translateY(-.25rem);box-shadow:0 30px 60px -30px rgba(251,191,36,.45)}
 .frame video{width:100%;height:100%;object-fit:cover}
+/* ING demo: a floating screen that tilts toward the cursor */
+.stage{perspective:1600px;padding:1rem 0 1.5rem}
+.screen{--rx:6deg;--ry:-10deg;position:relative;aspect-ratio:1264/760;border-radius:.875rem;overflow:hidden;background:#fff;transform:rotateX(var(--rx)) rotateY(var(--ry));transition:transform .9s var(--ease),box-shadow .9s;box-shadow:0 0 0 1px rgba(255,255,255,.1),-40px 60px 120px -50px rgba(56,189,248,.45),0 40px 80px -40px rgba(0,0,0,.9);will-change:transform}
+.stage:hover .screen{transition:transform .25s ease-out,box-shadow .9s;box-shadow:0 0 0 1px rgba(255,255,255,.14),-30px 50px 120px -50px rgba(251,191,36,.5),0 40px 80px -40px rgba(0,0,0,.9)}
+.screen video{width:100%;height:100%;object-fit:cover;display:block}
+.sheen{position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,rgba(255,255,255,.22) 0%,rgba(255,255,255,0) 38%,rgba(255,255,255,0) 70%,rgba(255,255,255,.06) 100%);mix-blend-mode:screen}
+.chip{position:absolute;right:.875rem;bottom:.875rem;display:flex;align-items:center;padding:.375rem .75rem;border-radius:999px;background:rgba(11,15,20,.78);backdrop-filter:blur(8px);color:#f3f4f6;font-size:.625rem}
 .slide{aspect-ratio:16/9;margin-top:1.75rem}
 .slide img{object-fit:contain;transition:opacity .4s ease}
 .step{width:2.75rem;height:2.75rem;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--text);cursor:pointer;transition:border-color .3s,color .3s}
@@ -176,6 +183,7 @@ footer{padding:clamp(6rem,12vw,10rem) 0 2.5rem}
   .story li{grid-template-columns:4.5rem minmax(0,1fr)}
 }
 @media (prefers-reduced-motion:reduce){
+  .screen{transform:none!important}
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
   .rv{opacity:1;transform:none}.glow{display:none}
 }
@@ -206,7 +214,6 @@ footer{padding:clamp(6rem,12vw,10rem) 0 2.5rem}
       <p class="mono boot" id="boot" aria-label="Applied AI Engineer — computer vision, generative AI, agentic systems"></p>
       <h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Aylin</h1>
       <canvas id="name" role="img" aria-label="Aylin, written in particles that ripple like water"></canvas>
-      <p class="mono" style="color:var(--faint)">move · ripple — click · bubbles</p>
       <p class="lead">I'm an Applied AI Engineer with a background in computer vision, generative AI and production ML. I build systems that see faces, give them voices and reason through decisions <span class="it">— then measure whether they really do.</span></p>
       <div class="coords mono">
         <span>41.0082° N · 28.9784° E</span>
@@ -291,8 +298,14 @@ footer{padding:clamp(6rem,12vw,10rem) 0 2.5rem}
 
       <div class="ing rv">
         <div>
-          <div class="frame"><video src="assets/ing-demo.mp4" autoplay muted loop playsinline aria-label="Investment Committee Copilot demo"></video></div>
-          <div class="cap mono"><span>fig. 02 — demo · 2× speed</span><span>Team EyAy</span></div>
+          <div class="stage" id="stage">
+            <div class="screen" id="screen">
+              <video src="assets/ing-demo.mp4" autoplay muted loop playsinline aria-label="Investment Committee Copilot demo"></video>
+              <span class="sheen" aria-hidden="true"></span>
+              <span class="chip mono"><span class="pulse" aria-hidden="true"></span>live demo · 2×</span>
+            </div>
+          </div>
+          <div class="cap mono"><span>fig. 03 — the RM workspace, end to end</span><span>Team EyAy</span></div>
         </div>
         <div>
           <p class="mono" style="color:var(--amber)">2nd place · ING Agentic AI Hackathon</p>
@@ -505,6 +518,14 @@ footer{padding:clamp(6rem,12vw,10rem) 0 2.5rem}
     const k = b.dataset.tab;
     swap(trio, () => { $('#la').src = 'assets/loomis/' + k + '-source.jpg'; $('#lb').src = 'assets/loomis/' + k + '-lineart.png'; $('#lc').src = 'assets/loomis/' + k + '-lesson.mp4'; $('#lc').play().catch(() => {}); });
   }));
+
+  /* ── ING demo: tilt follows the cursor, settles back on leave ── */
+  const stage = $('#stage'), screen = $('#screen');
+  if (!reduce && matchMedia('(hover: hover)').matches) {
+    stage.addEventListener('pointermove', (e) => { const r = stage.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      screen.style.setProperty('--ry', (x * 14).toFixed(2) + 'deg'); screen.style.setProperty('--rx', (-y * 10).toFixed(2) + 'deg'); });
+    stage.addEventListener('pointerleave', () => { screen.style.removeProperty('--ry'); screen.style.removeProperty('--rx'); });
+  }
 
   /* ── ING slides ── */
   const slides = ['02','03','04','05','06','07','08','09','10','11','12','14']; let si = 0; const simg = $('#slide');
