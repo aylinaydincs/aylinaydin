@@ -121,6 +121,7 @@ p{margin:0}
 .trio.out,.panel.out{opacity:0;transform:translateY(.375rem)}
 .trio .plate{aspect-ratio:3/2;background:#fff}
 .trio .contain img,.trio .contain video{object-fit:contain}
+#la{object-position:50% 38%}
 .ing{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:3rem;margin-top:7rem;align-items:start}
 .frame{border-radius:.75rem;overflow:hidden;border:1px solid var(--line);background:#000;aspect-ratio:1280/831;transition:transform .6s var(--ease),box-shadow .6s}
 .frame:hover{transform:translateY(-.25rem);box-shadow:0 30px 60px -30px rgba(251,191,36,.45)}
@@ -284,15 +285,15 @@ footer{padding:clamp(6rem,12vw,10rem) 0 2.5rem}
             <p class="body" style="margin-top:1rem">One image in; line art and a step-by-step drawing lesson out — every instruction tied to the strokes it reveals.</p>
           </div>
           <div class="tabs" role="tablist" aria-label="Loomis examples">
-            <button class="tab" role="tab" aria-selected="true" data-tab="dog">Dog</button>
+            <button class="tab" role="tab" aria-selected="true" data-tab="person">Portrait</button>
             <button class="tab" role="tab" aria-selected="false" data-tab="house">House &amp; tree</button>
             <button class="tab" role="tab" aria-selected="false" data-tab="cat">Cat</button>
           </div>
         </div>
         <div class="trio" id="trio">
-          <figure style="margin:0"><div class="plate"><img id="la" src="assets/loomis/dog-source.jpg" alt="Source photo"></div><figcaption class="cap mono"><span>a · source</span></figcaption></figure>
-          <figure style="margin:0"><div class="plate contain"><img id="lb" src="assets/loomis/dog-lineart.png" alt="Generated line art"></div><figcaption class="cap mono"><span>b · line art</span></figcaption></figure>
-          <figure style="margin:0"><div class="plate contain"><video id="lc" src="assets/loomis/dog-lesson.mp4" autoplay muted loop playsinline aria-label="Drawing lesson, stroke by stroke"></video></div><figcaption class="cap mono"><span>c · lesson, stroke by stroke</span></figcaption></figure>
+          <figure style="margin:0"><div class="plate"><img id="la" src="assets/loomis/person-source.jpg" alt="Source photo"></div><figcaption class="cap mono"><span>a · source</span></figcaption></figure>
+          <figure style="margin:0"><div class="plate contain"><img id="lb" src="assets/loomis/person-lineart.png" alt="Generated line art"></div><figcaption class="cap mono"><span>b · line art</span></figcaption></figure>
+          <figure style="margin:0"><div class="plate contain"><video id="lc" src="assets/loomis/person-lesson.mp4" autoplay muted loop playsinline aria-label="Drawing lesson, stroke by stroke"></video></div><figcaption class="cap mono"><span>c · lesson, stroke by stroke</span></figcaption></figure>
         </div>
       </div>
 
